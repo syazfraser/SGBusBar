@@ -1,0 +1,368 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B0B0B00000000000000000A1 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = B0B0B00000000000000000A2 /* CHANGELOG.md */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B0B0B00000000000000000B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B0B0B0000000000000000009 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B0B0B0000000000000000006;
+			remoteInfo = SGBusBar;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B0B0B0000000000000000001 /* SGBusBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SGBusBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0B0B00000000000000000A2 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		B0B0B00000000000000000B1 /* SGBusBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SGBusBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		B0B0B0000000000000000002 /* SGBusBar */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SGBusBar;
+			sourceTree = "<group>";
+		};
+		B0B0B00000000000000000B2 /* SGBusBarTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SGBusBarTests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B0B0B0000000000000000003 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0B0B00000000000000000B4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B0B0B0000000000000000004 = {
+			isa = PBXGroup;
+			children = (
+				B0B0B00000000000000000A2 /* CHANGELOG.md */,
+				B0B0B0000000000000000002 /* SGBusBar */,
+				B0B0B00000000000000000B2 /* SGBusBarTests */,
+				B0B0B0000000000000000005 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B0B0B0000000000000000005 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B0B0B0000000000000000001 /* SGBusBar.app */,
+				B0B0B00000000000000000B1 /* SGBusBarTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B0B0B0000000000000000006 /* SGBusBar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0B0B000000000000000000C /* Build configuration list for PBXNativeTarget "SGBusBar" */;
+			buildPhases = (
+				B0B0B0000000000000000007 /* Sources */,
+				B0B0B0000000000000000003 /* Frameworks */,
+				B0B0B0000000000000000008 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				B0B0B0000000000000000002 /* SGBusBar */,
+			);
+			name = SGBusBar;
+			packageProductDependencies = (
+			);
+			productName = SGBusBar;
+			productReference = B0B0B0000000000000000001 /* SGBusBar.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B0B0B00000000000000000B6 /* SGBusBarTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0B0B00000000000000000BB /* Build configuration list for PBXNativeTarget "SGBusBarTests" */;
+			buildPhases = (
+				B0B0B00000000000000000B3 /* Sources */,
+				B0B0B00000000000000000B4 /* Frameworks */,
+				B0B0B00000000000000000B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B0B0B00000000000000000B8 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				B0B0B00000000000000000B2 /* SGBusBarTests */,
+			);
+			name = SGBusBarTests;
+			packageProductDependencies = (
+			);
+			productName = SGBusBarTests;
+			productReference = B0B0B00000000000000000B1 /* SGBusBarTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B0B0B0000000000000000009 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					B0B0B0000000000000000006 = {
+						CreatedOnToolsVersion = 26.0;
+					};
+					B0B0B00000000000000000B6 = {
+						CreatedOnToolsVersion = 26.0;
+						TestTargetID = B0B0B0000000000000000006;
+					};
+				};
+			};
+			buildConfigurationList = B0B0B000000000000000000B /* Build configuration list for PBXProject "SGBusBar" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B0B0B0000000000000000004;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = B0B0B0000000000000000005 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B0B0B0000000000000000006 /* SGBusBar */,
+				B0B0B00000000000000000B6 /* SGBusBarTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B0B0B0000000000000000008 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0B0B00000000000000000A1 /* CHANGELOG.md in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0B0B00000000000000000B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B0B0B0000000000000000007 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0B0B00000000000000000B3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B0B0B00000000000000000B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B0B0B0000000000000000006 /* SGBusBar */;
+			targetProxy = B0B0B00000000000000000B7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B0B0B000000000000000000D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B0B0B000000000000000000E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		B0B0B000000000000000000F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = SGBusBar;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSUIElement = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.syazwanrifdi.SGBusBar;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B0B0B0000000000000000010 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = SGBusBar;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSUIElement = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.syazwanrifdi.SGBusBar;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B0B0B00000000000000000B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.syazwanrifdi.SGBusBarTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SGBusBar.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SGBusBar";
+			};
+			name = Debug;
+		};
+		B0B0B00000000000000000BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.syazwanrifdi.SGBusBarTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SGBusBar.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SGBusBar";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B0B0B000000000000000000B /* Build configuration list for PBXProject "SGBusBar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0B0B000000000000000000D /* Debug */,
+				B0B0B000000000000000000E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0B0B000000000000000000C /* Build configuration list for PBXNativeTarget "SGBusBar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0B0B000000000000000000F /* Debug */,
+				B0B0B0000000000000000010 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0B0B00000000000000000BB /* Build configuration list for PBXNativeTarget "SGBusBarTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0B0B00000000000000000B9 /* Debug */,
+				B0B0B00000000000000000BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B0B0B0000000000000000009 /* Project object */;
+}
