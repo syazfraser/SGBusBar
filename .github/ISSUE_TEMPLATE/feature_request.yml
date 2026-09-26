@@ -1,0 +1,20 @@
+name: Feature request
+description: An idea to make SGBusBar better.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would you like to do?
+      description: Describe the situation or problem, e.g. "I take two buses to work and want to see both".
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: How might SGBusBar help?
+      description: Your idea for how it could work. Sketches and screenshots welcome.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Anything you've tried instead?
