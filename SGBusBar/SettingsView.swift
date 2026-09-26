@@ -785,8 +785,10 @@ private struct AboutPage: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("SGBusBar")
                         .font(.title.weight(.bold))
-                    Text("Version \(AppInfo.version) (\(AppInfo.build))")
+                    // The build number only matters for bug reports, so it's in the tooltip.
+                    Text("Version \(AppInfo.version)")
                         .foregroundStyle(.secondary)
+                        .help("Build \(AppInfo.build)")
                     Text("Your next buses at a glance, coloured by when to leave.")
                         .font(.callout)
                         .foregroundStyle(.secondary)
