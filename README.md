@@ -46,6 +46,10 @@ brew install --cask syazfraser/tap/sgbusbar
 
 Update later with `brew upgrade --cask sgbusbar`.
 
+Homebrew asks you to trust apps from taps outside its main catalogue; typing the full name above does that for you.
+If you'd rather add the tap first and use the short name, trust it too:
+`brew tap syazfraser/tap && brew trust syazfraser/tap`, then `brew install --cask sgbusbar`.
+
 ### Download
 
 Get the latest `SGBusBar-x.y.z.zip` from [Releases](https://github.com/syazfraser/SGBusBar/releases/latest), unzip it and drag **SGBusBar** to Applications.
