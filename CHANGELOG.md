@@ -6,6 +6,14 @@ All notable changes to SGBusBar are listed here. The format follows
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-09-28
+
+### Fixed
+- After starting up or waking your Mac before Wi-Fi has connected, times now load as soon as the connection is back. Before, the popup could say Offline for several minutes until you clicked Refresh.
+
+### Changed
+- The popup says when there's no internet connection, and when LTA can't be reached, instead of "Getting bus times…".
+
 ## [0.2.0] - 2026-09-26
 
 The first public release.
@@ -30,5 +38,6 @@ The first public release.
 
 - First working version for personal use: one bus in the menu bar with colour-coded times.
 
-[Unreleased]: https://github.com/syazfraser/SGBusBar/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/syazfraser/SGBusBar/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/syazfraser/SGBusBar/releases/tag/v0.2.1
 [0.2.0]: https://github.com/syazfraser/SGBusBar/releases/tag/v0.2.0
