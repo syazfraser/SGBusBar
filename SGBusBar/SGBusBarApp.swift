@@ -15,6 +15,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var store: ArrivalStore?
     private var settings: SettingsWindowController?
     private var statusItem: StatusItemController?
+    private var connection: ConnectionMonitor?
 
     /// Launched as the host for the unit tests: stay out of the menu bar, the Keychain and the network.
     private static var isRunningTests: Bool {
@@ -31,6 +32,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         self.settings = settings
         statusItem = StatusItemController(store: store, settings: settings)
         store.start()
+
+        // At login or on wake, Wi-Fi often joins a few seconds after the first try.
+        connection = ConnectionMonitor { [weak store] online in store?.setOnline(online) }
 
         // No polling while the Mac is asleep.
         let center = NSWorkspace.shared.notificationCenter

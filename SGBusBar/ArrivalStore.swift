@@ -22,6 +22,8 @@ final class ArrivalStore {
     private(set) var lastUpdated: Date?
     /// Set when every request in the last refresh failed.
     private(set) var lastError: String?
+    /// False while macOS reports no network connection.
+    private(set) var isOnline = true
     private(set) var isRefreshing = false
     /// stop code → when its times last came back (or it was skipped as having nothing scheduled).
     private(set) var stopUpdatedAt: [String: Date] = [:]
@@ -44,6 +46,10 @@ final class ArrivalStore {
 
     @ObservationIgnored private var apiKey: String?
     @ObservationIgnored private var pollTask: Task<Void, Never>?
+    /// The wait between polls, which `retryNow()` can cut short.
+    @ObservationIgnored private var waitTask: Task<Void, Never>?
+    /// Poll again straight after the refresh under way instead of waiting.
+    @ObservationIgnored private var retryRequested = false
     @ObservationIgnored private var tickTask: Task<Void, Never>?
     @ObservationIgnored private let defaults: UserDefaults
     @ObservationIgnored private var isPopupOpen = false
@@ -86,6 +92,7 @@ final class ArrivalStore {
     /// For the badge in the popup header and the Settings sidebar.
     var feedStatus: FeedStatus {
         if !hasAPIKey { return .setUp }
+        if !isOnline { return .offline }
         if lastUpdated == nil { return lastError == nil ? .loading : .offline }
         return isStale ? .offline : .live
     }
@@ -318,7 +325,7 @@ final class ArrivalStore {
         pollTask = Task { [weak self] in
             while !Task.isCancelled {
                 await self?.poll()
-                try? await Task.sleep(for: .seconds(self?.nextPollDelay ?? Self.defaultPollSeconds))
+                await self?.waitForNextPoll()
             }
         }
         tickTask = Task { [weak self] in
@@ -331,6 +338,7 @@ final class ArrivalStore {
 
     func stop() {
         pollTask?.cancel()
+        waitTask?.cancel()
         tickTask?.cancel()
         pollTask = nil
         tickTask = nil
@@ -338,15 +346,46 @@ final class ArrivalStore {
 
     /// With "None" in the menu bar and the popup closed, nothing on screen needs live times.
     private func poll() async {
+        retryRequested = false
         guard format.count > 0 || isPopupOpen else { return }
         await refresh()
     }
 
-    /// The chosen interval, doubled after each refresh that failed outright (up to 5 minutes),
-    /// so an LTA outage or no internet isn't retried every 30 seconds.
-    private var nextPollDelay: Int {
+    /// Sleeps until the next poll is due, unless `retryNow()` asks for one sooner.
+    private func waitForNextPoll() async {
+        guard !retryRequested else { return }
+        let delay = nextPollDelay
+        let wait = Task { _ = try? await Task.sleep(for: .seconds(delay)) }
+        waitTask = wait
+        await wait.value
+        if waitTask == wait { waitTask = nil }
+    }
+
+    /// Polls now, or straight after the refresh under way.
+    private func retryNow() {
+        retryRequested = true
+        waitTask?.cancel()
+    }
+
+    /// The chosen interval, doubled after each refresh that LTA failed outright (up to 5 minutes),
+    /// so an LTA outage isn't retried every 30 seconds. Having no internet doesn't count: those
+    /// requests never reach LTA, and coming back online retries straight away (see `setOnline`).
+    var nextPollDelay: Int {
         guard consecutiveFailures > 0 else { return pollSeconds }
         return min(pollSeconds << min(consecutiveFailures, 4), Self.maxBackoffSeconds)
+    }
+
+    /// Called when the Mac's network connection comes or goes. Coming back online, e.g. once
+    /// Wi-Fi joins after starting up or waking, fetches times straight away instead of waiting
+    /// for the next poll, unless they're already fresh.
+    func setOnline(_ online: Bool) {
+        let cameBack = online && !isOnline
+        isOnline = online
+        guard cameBack else { return }
+        let age = lastUpdated.map { Date().timeIntervalSince($0) } ?? .infinity
+        guard age >= Double(Self.minimumPollSeconds) else { return }
+        consecutiveFailures = 0
+        retryNow()
     }
 
     /// Opening the popup gets fresh times unless the last ones are under 20 seconds old (LTA's
@@ -385,20 +424,23 @@ final class ArrivalStore {
         let client = LTAClient(apiKey: apiKey)
         var fetched: [String: [String: [Arrival]]] = [:]
         var failure: String?
+        var reachedLTA = false
         await withTaskGroup(of: StopFetch.self) { group in
             for request in requests {
                 group.addTask {
                     do {
                         let services = try await client.arrivals(atStop: request.stop, serviceNo: request.serviceNo)
-                        return StopFetch(stop: request.stop, services: services, error: nil)
+                        return StopFetch(stop: request.stop, services: services, error: nil, noConnection: false)
                     } catch {
-                        return StopFetch(stop: request.stop, services: nil, error: error.localizedDescription)
+                        return StopFetch(stop: request.stop, services: nil, error: error.localizedDescription,
+                                         noConnection: Self.isConnectionError(error))
                     }
                 }
             }
             for await result in group {
                 if let services = result.services { fetched[result.stop] = services }
                 if let error = result.error { failure = error }
+                if !result.noConnection { reachedLTA = true }
             }
         }
         // Stopped mid-refresh (e.g. the Mac is going to sleep): don't count it as a failure.
@@ -412,14 +454,26 @@ final class ArrivalStore {
         arrivals = arrivals.merging(fetched) { _, new in new }.filter { tracked.contains($0.key) }
 
         if allFailed {
-            consecutiveFailures += 1
+            // With no internet the requests never reached LTA, so there's nothing to back off from.
+            if reachedLTA { consecutiveFailures += 1 }
             lastError = failure
         } else {
             consecutiveFailures = 0
             lastError = nil
             lastUpdated = finished
+            retryRequested = false
         }
         now = finished
+    }
+
+    /// Errors that mean the Mac isn't online (yet), rather than LTA having trouble.
+    private nonisolated static func isConnectionError(_ error: Error) -> Bool {
+        guard let error = error as? URLError else { return false }
+        let offline: [URLError.Code] = [
+            .notConnectedToInternet, .networkConnectionLost, .cannotFindHost, .dnsLookupFailed,
+            .dataNotAllowed, .internationalRoamingOff,
+        ]
+        return offline.contains(error.code)
     }
 
     /// One stop's outcome in a refresh. Deliberately not `Result<_, Error>`: with the Release
@@ -429,6 +483,8 @@ final class ArrivalStore {
         let stop: String
         let services: [String: [Arrival]]?
         let error: String?
+        /// Failed because the Mac has no connection, so the request never reached LTA.
+        let noConnection: Bool
     }
 
     private enum Keys {
