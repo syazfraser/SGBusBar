@@ -97,10 +97,17 @@ private struct PopupHeader: View {
     }
 
     @ViewBuilder private var subtitle: some View {
-        if let lastUpdated = store.lastUpdated {
+        if store.hasAPIKey && !store.isOnline {
+            // Times come back by themselves once the Mac reconnects.
+            if let lastUpdated = store.lastUpdated {
+                Text("No internet · updated \(lastUpdated, style: .relative) ago")
+            } else {
+                Text("No internet · times load once you're back online")
+            }
+        } else if let lastUpdated = store.lastUpdated {
             Text("Updated \(lastUpdated, style: .relative) ago")
         } else if store.hasAPIKey {
-            Text("Getting bus times…")
+            Text(store.lastError != nil && !store.isRefreshing ? "Can't reach LTA · trying again" : "Getting bus times…")
         } else {
             Text("Singapore bus arrivals")
         }
