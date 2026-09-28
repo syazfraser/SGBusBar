@@ -3,13 +3,16 @@ import Testing
 @testable import SGBusBar
 
 /// Answers the app's LTA requests with canned responses, so the tests never touch the network.
+/// Only for requests made with this suite's key, so other suites can fake LTA their own way.
 final class FakeLTA: URLProtocol {
+    static let apiKey = "test"
     nonisolated(unsafe) static var status = 200
     nonisolated(unsafe) static var body = "{}"
     nonisolated(unsafe) static var lastURL: URL?
 
     override class func canInit(with request: URLRequest) -> Bool {
         request.url?.host?.contains("mytransport.sg") == true
+            && request.value(forHTTPHeaderField: "AccountKey") == apiKey
     }
 
     override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
@@ -41,7 +44,7 @@ private let arrivalsJSON = """
 
 @Suite("Reading LTA DataMall responses", .serialized)
 struct LTAClientTests {
-    private let client = LTAClient(apiKey: "test")
+    private let client = LTAClient(apiKey: FakeLTA.apiKey)
 
     init() {
         URLProtocol.registerClass(FakeLTA.self)
